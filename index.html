@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Alfred: Branch Maintenance</title>
+	<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+	<header>
+		<h1 class="title">Alfred</h1>
+		<h2 class="subtitle">Branch maintenance</h2>
+	</header>
+	<content>
+		<div id="form" class="section">
+			<div class="panel-buttons">
+				<button id="start-button" class="action-button">Start!</button>
+			</div>
+			<button id="form-tab-options" class="form-tab">Options</button>
+			<button id="form-tab-schedule" class="form-tab make-active">Scheduling</button>
+			<form id="form-options" class="panel active">
+				<div class="category mandatory-container">
+					<h3 class="category-title">Branches</h3>
+					<div><span class="mandatory-label">Mandatory:</span> At least one of the branch options must be selected</div>
+					<div class="subsection">
+						<div>
+							<input id="branches-toggle" class="branch-option-toggle" type="checkbox" name="branches-toggle" value="-b">
+							<label for="branches-toggle">Choose branches to maintain:</label>
+						</div>
+						<div id="branches" class="branch-list"></div>
+						<div class="branch-command">
+							<input id="skip-clean-toggle" type="checkbox" name="skip-clean-toggle" value="-c" disabled>
+							<label for="skip-clean-toggle">Don't clean branch before merging</label>
+						</div>
+					</div>
+					<div class="subsection">
+						<input id="allbranches-toggle" class="branch-option-toggle mandatory-option" type="checkbox" name="allbranches-toggle" value="-a">
+						<label for="allbranches-toggle">Run on all local branches</label>
+					</div>
+					<div class="test-option subsection">
+						<input id="prodbranches-toggle" type="checkbox" name="prodbranches-toggle" value="-p" checked>
+					</div>
+				</div>
+
+				<div class="category">
+					<h3 class="category-title">Logging and reporting</h3>
+					<div class="subsection">
+						<div>
+							<input id="emails-toggle" type="checkbox" name="emails-toggle" value="-e">
+							<label for="emails-toggle">Enter one or more emails of additional recipients</label>
+						</div>
+						<div>
+							<label for="emails" class="text-label">Emails: </label>
+							<input id="emails" class="text-input mandatory" type="email" multiple name="emails" placeholder="email1@domain.com,email2@domain.com,email3@domain.com" disabled>
+						</div>
+					</div>
+					<div class="subsection">
+						<input id="summary-toggle" type="checkbox" name="summary-toggle" value="-s">
+						<label for="summary-toggle">Just send summary report, no error reports</label>
+					</div>
+					<div class="subsection">
+						<input id="verbose-toggle" type="checkbox" name="verbose-toggle" value="-v">
+						<label for="verbose-toggle">Log reports in verbose mode (show all svn messages)</label>
+					</div>
+				</div>
+			</form>
+
+			<form id="form-schedule" class="panel inactive">
+				<div class="category">
+					<h3 class="category-title">Repeated day/time schedule</h3>
+					<div class="subsection">
+						<p>Maintenance will repeat on the chosen day(s) and time(s). Uncheck to prevent future repetitions.</p>
+						<input id="date-toggle" type="checkbox" name="date-toggle" class="schedule-toggle">
+						<label for="date-toggle">Use schedule</label>
+					</div>
+					<table class="toggle-table">
+						<tbody>
+							<tr class="date-toggle-column">
+								<td><input id="day-toggle-1" type="checkbox" value="1" class="date-toggle-day" disabled><label for="day-toggle-1">Monday</label></td>
+								<td><input id="hour-toggle-0" type="checkbox" value="0" class="date-toggle-time" disabled><label for="hour-toggle-0">12 AM</label></td>
+								<td><input id="hour-toggle-6" type="checkbox" value="6" class="date-toggle-time" disabled><label for="hour-toggle-6">6 AM</label></td>
+								<td><input id="hour-toggle-12" type="checkbox" value="12" class="date-toggle-time" disabled><label for="hour-toggle-12">12 PM</label></td>
+								<td><input id="hour-toggle-18" type="checkbox" value="18" class="date-toggle-time" disabled><label for="hour-toggle-18">6 PM</label></td>
+							</tr>
+							<tr class="date-toggle-column">
+								<td><input id="day-toggle-2" type="checkbox" value="2" class="date-toggle-day" disabled><label for="day-toggle-2">Tuesday</label></td>
+								<td><input id="hour-toggle-1" type="checkbox" value="1" class="date-toggle-time" disabled><label for="hour-toggle-1">1 AM</label></td>
+								<td><input id="hour-toggle-7" type="checkbox" value="7" class="date-toggle-time" disabled><label for="hour-toggle-7">7 AM</label></td>
+								<td><input id="hour-toggle-13" type="checkbox" value="13" class="date-toggle-time" disabled><label for="hour-toggle-13">1 PM</label></td>
+								<td><input id="hour-toggle-19" type="checkbox" value="19" class="date-toggle-time" disabled><label for="hour-toggle-19">7 PM</label></td>
+							</tr>
+							<tr class="date-toggle-column">
+								<td><input id="day-toggle-3" type="checkbox" value="3" class="date-toggle-day" disabled><label for="day-toggle-3">Wednesday</label></td>
+								<td><input id="hour-toggle-2" type="checkbox" value="2" class="date-toggle-time" disabled><label for="hour-toggle-2">2 AM</label></td>
+								<td><input id="hour-toggle-8" type="checkbox" value="8" class="date-toggle-time" disabled><label for="hour-toggle-8">8 AM</label></td>
+								<td><input id="hour-toggle-14" type="checkbox" value="14" class="date-toggle-time" disabled><label for="hour-toggle-14">2 PM</label></td>
+								<td><input id="hour-toggle-20" type="checkbox" value="20" class="date-toggle-time" disabled><label for="hour-toggle-20">8 PM</label></td>
+							</tr>
+							<tr class="date-toggle-column">
+								<td><input id="day-toggle-4" type="checkbox" value="4" class="date-toggle-day" disabled><label for="day-toggle-4">Thursday</label></td>
+								<td><input id="hour-toggle-3" type="checkbox" value="3" class="date-toggle-time" disabled><label for="hour-toggle-3">3 AM</label></td>
+								<td><input id="hour-toggle-9" type="checkbox" value="9" class="date-toggle-time" disabled><label for="hour-toggle-9">9 AM</label></td>
+								<td><input id="hour-toggle-15" type="checkbox" value="15" class="date-toggle-time" disabled><label for="hour-toggle-15">3 PM</label></td>
+								<td><input id="hour-toggle-21" type="checkbox" value="21" class="date-toggle-time" disabled><label for="hour-toggle-21">9 PM</label></td>
+							</tr>
+							<tr class="date-toggle-column">
+								<td><input id="day-toggle-5" type="checkbox" value="5" class="date-toggle-day" disabled><label for="day-toggle-5">Friday</label></td>
+								<td><input id="hour-toggle-4" type="checkbox" value="4" class="date-toggle-time" disabled><label for="hour-toggle-4">4 AM</label></td>
+								<td><input id="hour-toggle-10" type="checkbox" value="10" class="date-toggle-time" disabled><label for="hour-toggle-10">10 AM</label></td>
+								<td><input id="hour-toggle-16" type="checkbox" value="16" class="date-toggle-time" disabled><label for="hour-toggle-16">4 PM</label></td>
+								<td><input id="hour-toggle-22" type="checkbox" value="22" class="date-toggle-time" disabled><label for="hour-toggle-22">10 PM</label></td>
+							</tr>
+							<tr class="date-toggle-column">
+								<td><input id="day-toggle-6" type="checkbox" value="6" class="date-toggle-day" disabled><label for="day-toggle-6">Saturday</label></td>
+								<td><input id="hour-toggle-5" type="checkbox" value="5" class="date-toggle-time" disabled><label for="hour-toggle-5">5 AM</label></td>
+								<td><input id="hour-toggle-11" type="checkbox" value="11" class="date-toggle-time" disabled><label for="hour-toggle-11">11 AM</label></td>
+								<td><input id="hour-toggle-17" type="checkbox" value="17" class="date-toggle-time" disabled><label for="hour-toggle-17">5 PM</label></td>
+								<td><input id="hour-toggle-23" type="checkbox" value="23" class="date-toggle-time" disabled><label for="hour-toggle-23">11 PM</label></td>
+							</tr>
+							<tr class="date-toggle-column">
+								<td><input id="day-toggle-0" type="checkbox" value="0" class="date-toggle-day" disabled><label for="day-toggle-0">Sunday</label></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>
+		<div id="result" class="section">
+			<div class="panel-buttons">
+				<button id="cancel-button" class="action-button">Cancel Schedule</button>
+				<button id="clear-button" class="action-button">Clear</button>
+			</div>
+			<div class="panel">
+				<div class="category">
+					<h3 class="category-title">Results</h3>
+					<div id="results-text"></div>
+				</div>
+			</div>
+		</div>
+	</content>
+	<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="js/alfred.js"></script>
+</body>
+</html>

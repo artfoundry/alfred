@@ -1,0 +1,21 @@
+{
+  "name": "alfred",
+  "version": "1.7.2",
+  "description": "Branch maintenance app",
+  "author": {
+    "name": "David Markowitz",
+    "email": "dave@artfoundry.com",
+    "url": "https://www.github.com/artfoundry/alfred"
+  },
+  "bin": {
+    "alfred-server": "./server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/artfoundry/alfred"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "socket.io": "^2.1.1"
+  }
+}
