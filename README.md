@@ -3,6 +3,15 @@ Tool for automating svn branch maintenance.
 
 For terminal help run `alfred-server -h`
 
+## Installation
+
+1. Git clone the repo
+2. Run `npm install -g`
+3. In server.js, enter values for all lines with the comment "// Need to fill in value..."
+4. In alfred.sh, enter values for all lines with the comment "##### to be filled in..."
+
+(In next version will update script to obtain this information upon running, so src files don't need to be edited)
+
 ## Running from the web page
 
 To run in the web server:
