@@ -1,10 +1,6 @@
 # Alfred
 Tool for automating svn branch maintenance.
 
-## Installing
-
-1. `npm install -g [npm server alfred path]`
-
 For terminal help run `alfred-server -h`
 
 ## Running from the web page
